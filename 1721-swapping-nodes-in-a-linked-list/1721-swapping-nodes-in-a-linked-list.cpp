@@ -11,33 +11,23 @@
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        vector<int> vt;
-        ListNode *nums = head;
+        // ek badhiya approach
+        ListNode *prev = head;
+        ListNode *curr = head;
+        ListNode *curr2 = head;
         
-        while(nums != NULL){
-            vt.push_back(nums->val);
-            nums = nums->next;
+        while(--k){
+            curr = curr->next;
+            curr2 = curr2->next;
         }
         
-        int n = vt.size();
-        int start = k - 1;
-        int end = n - k;
-        
-        if(start == end) 
-            return head;
-        
-        if(vt[start] != vt[end]){
-            swap(vt[start], vt[end]);
-        }
-        
-        ListNode *result = new ListNode(vt[0]);
-        ListNode *ans = result;
+        while(curr2->next != NULL){
+            curr2 = curr2->next;
+            prev = prev->next;
            
-        for(int i = 1; i < n; i++){
-            result->next = new ListNode(vt[i]);
-            result = result->next;
         }
         
-        return ans;
+        swap(prev->val, curr->val);
+        return head;
     }
 };
